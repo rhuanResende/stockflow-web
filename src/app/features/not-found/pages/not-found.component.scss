@@ -1,0 +1,48 @@
+@use "@rhuanResende/design-system/styles/ds" as *;
+
+.ds-not-found {
+  min-height: calc(100vh - 5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: ds-spacing(2xl);
+
+  &__box {
+    width: 100%;
+    max-width: 46rem;
+    background: var(--ds-bg-neutral-primary);
+    border: 1px solid var(--ds-border-neutral-primary);
+    border-radius: ds-radius(xl);
+    padding: ds-spacing(2xl);
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.04);
+  }
+
+  &__code {
+    font-size: 8rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ds-text-primary);
+    margin-bottom: ds-spacing(md);
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--ds-text-neutral-primary);
+    margin-bottom: ds-spacing(sm);
+  }
+
+  &__description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ds-text-neutral-secondary);
+    margin-bottom: ds-spacing(xl);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: ds-spacing(md);
+  }
+}

@@ -1,0 +1,72 @@
+<aside
+  class="sidebar"
+  [class.sidebar__collapsed]="isCollapsed">
+
+  <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
+    <ds-action-button
+      [dsIconConfig]="isCollapsed ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left'"
+      [dsType]="dsActionButtonType.standard"
+      (dsOnClick)="toggleSidebar()">
+    </ds-action-button>
+  </section>
+  <section
+    [ngClass]="
+    isCollapsed
+      ? 'sidebar__collapsed__user-box'
+      : 'sidebar__user-box'
+    "
+    fxLayout="column"
+    fxLayoutAlign="center center">
+    <section class="sidebar__user-box__avatar">
+      {{ user.name.charAt(0) }}
+    </section>
+    @if (!isCollapsed) {
+      <section class="sidebar__user-box__info" fxLayout="column" fxLayoutAlign="center center">
+        <span class="sidebar__user-box__name">{{ user.name }}</span>
+        <span class="topbar__user-box__profile">{{ user.profile }}</span>
+      </section>
+    }
+  </section>
+  <nav class="ds-gap-sm sidebar__menu" fxLayout="column">
+    @for (item of menuItems; track item.label) {
+      @if (item.route) {
+        <a
+          class="ds-gap-sm sidebar__menu__item"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          fxLayout="row"
+          fxLayoutAlign="start center">
+          <i [class]="item.icon"></i>
+          @if (!isCollapsed) {
+            <span>{{ item.label }}</span>
+          }
+        </a>
+      } @else {
+        <a
+          class="ds-gap-sm sidebar__menu__item"
+          routerLinkActive="active"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          (click)="executeAction(item.action)">
+          <i [class]="item.icon"></i>
+          @if (!isCollapsed) {
+            <span>{{ item.label }}</span>
+          }
+        </a>
+      }
+    }
+  </nav>
+  <footer class="sidebar__footer">
+    @if (!isCollapsed) {
+      <img
+        src="assets/images/logo_transparente.png"
+        alt="Stockbeer"
+        class="sidebar__footer__logo">
+    } @else {
+      <img
+        src="assets/favicon.png"
+        alt="Stockbeer"
+        class="sidebar__collapsed__footer__logo">
+    }
+  </footer>
+</aside>

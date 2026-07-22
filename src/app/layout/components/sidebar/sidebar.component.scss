@@ -1,0 +1,112 @@
+@use "@rhuanResende/design-system/styles/ds" as *;
+
+$sidebar: "sidebar";
+
+.#{$sidebar} {
+  width: 16.25rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $ds-bg-primary;
+  color: $ds-text-primary;
+  padding: $ds-spacing-lg $ds-spacing-md;
+  box-sizing: border-box;
+  transition: all .3s ease;
+
+  &__collapsed {
+    width: 4.5rem;
+
+    &__user-box {
+      padding: $ds-spacing-md;
+      margin-top: $ds-spacing-md;
+      gap: $ds-spacing-md;
+    }
+
+    .sidebar__menu__item {
+      justify-content: center;
+    }
+
+    .sidebar__footer {
+      display: flex;
+      justify-content: center;
+    }
+
+    &__footer {
+      margin-top: auto;
+
+      &__logo {
+        max-width: $ds-spacing-3xl;
+      }
+    }
+  }
+
+  &__user-box {
+    background-color: $ds-bg-neutral-secondary;
+    border: $ds-bw-md $ds-bs-solid $ds-border-primary;
+    border-radius: $ds-br-md;
+    padding: $ds-spacing-md;
+    margin-top: $ds-spacing-md;
+    gap: $ds-spacing-md;
+
+    &__avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: $ds-bg-primary;
+      color: white;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__info {
+      line-height: 1.2;
+    }
+
+    &__name {
+      font-size: $ds-fs-sm;
+      font-weight: $ds-fw-superstrong;
+      color: $ds-text-primary;
+    }
+
+    &__company,
+    &__profile {
+      font-size: $ds-fs-xs;
+      color: $ds-text-neutral-tertiary;
+    }
+  }
+
+  &__menu {
+    flex: 1;
+    margin-top: 1rem;
+
+    &__item {
+      padding: $ds-spacing-md $ds-spacing-md;
+      border-radius: $ds-br-md;
+      text-decoration: none;
+      color: $ds-text-primary;
+      font-weight: $ds-fw-strong;
+      transition: all .3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: $ds-bg-amber;
+        color: $ds-text-neutral-primary;
+      }
+
+      &.active {
+        background: $ds-bg-primary;
+        color: $ds-text-neutral-secondary;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: auto;
+
+    &__logo {
+      max-width: 15rem;
+    }
+  }
+}
