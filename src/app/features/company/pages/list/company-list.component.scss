@@ -1,0 +1,13 @@
+@use "@rhuanResende/design-system/styles/ds" as *;
+
+$company: "company";
+
+.#{$company} {
+  padding: $ds-spacing-md;
+
+  &__table {
+    &__title {
+      color: $ds-text-neutral-primary;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@use "@rhuanResende/design-system/styles/ds" as *;
+
+$company: "company";
+
+.#{$company} {
+  padding: $ds-spacing-md;
+}

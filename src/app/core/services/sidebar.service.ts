@@ -15,6 +15,7 @@ export class SidebarService {
       label: 'Empresas',
       icon: 'fa-solid fa-building',
       route: '/pages/companies',
+      profiles: ['MASTER']
     },
     /*
     {

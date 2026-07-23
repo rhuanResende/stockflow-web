@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DsButtonIconAlign, DsComponent, DsDocumentType } from '@rhuanResende/design-system';
+import { DsComponent, DsDocumentType } from '@rhuanResende/design-system';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,7 +15,6 @@ export class LoginComponent extends DsComponent {
   loginForm: FormGroup;
 
   dsDocumentType: typeof DsDocumentType = DsDocumentType;
-  dsButtonIconAlign: typeof DsButtonIconAlign = DsButtonIconAlign;
 
   constructor(
     injector: Injector,
@@ -26,8 +25,8 @@ export class LoginComponent extends DsComponent {
   ) {
     super(injector);
     this.loginForm = this.fb.group({
-      document: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      document: ['03412808105', [Validators.required]],
+      password: ['aA@7418590', [Validators.required]],
     });
   }
 
