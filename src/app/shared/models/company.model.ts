@@ -5,3 +5,7 @@ export interface CompanyResponse {
   email: string;
   phone: string;
 }
+
+export interface CompanyCreateRequest {}
+
+export interface CompanyUpdateRequest {}

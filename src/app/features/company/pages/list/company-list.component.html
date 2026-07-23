@@ -1,0 +1,109 @@
+<main class="company">
+  <section class="ds-gap-md" fxLayout="column">
+    <ds-table
+      [dsColumns]="columns"
+      [dsItems]="companies"
+      [dsEmptyStateText]="'Ainda não existem empresas cadastradas!'">
+      <section ds-table-pre-content class="ds-gap-md">
+        <form class="ds-gap-md" [formGroup]="filterForm">
+          <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
+            <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+              <ds-input-text
+                fxFlex="50"
+                formControlName="name"
+                dsLabel="Nome"
+                dsPlaceholder="Buscar por nome"
+                [dsUppercaseValue]="true">
+              </ds-input-text>
+              <ds-input-text
+                fxFlex="25"
+                formControlName="document"
+                dsLabel="CPF/CNPJ"
+                dsPlaceholder="Buscar por CPF/CNPJ"
+                [dsUppercaseValue]="true">
+              </ds-input-text>
+              <ds-select
+                fxFlex="25"
+                formControlName="status"
+                dsOptionValueProp="id"
+                dsOptionLabelProp="label"
+                dsLabel="Status"
+                dsPlaceholder="Status"
+                [dsAriaLabel]="'Status'"
+                [dsAppendTo]="'body'"
+                [dsOptionList]="statusList">
+              </ds-select>
+            </section>
+            <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
+              <ds-button
+                dsLabel="Limpar filtros"
+                dsIconConfig="fa-solid fa-filter"
+                [dsIconAlign]="dsButtonIconAlign.left"
+                [dsSize]="dsButtonSize.md"
+                [dsType]="dsButtonType.secondary"
+                (dsOnClick)="filterClean()">
+              </ds-button>
+              <ds-button
+                dsLabel="Nova solicitação"
+                dsIconConfig="fa-solid fa-plus"
+                [dsIconAlign]="dsButtonIconAlign.left"
+                [dsSize]="dsButtonSize.md"
+                (dsOnClick)="newRequest()">
+              </ds-button>
+            </section>
+          </section>
+        </form>
+      </section>
+      @if (totalCompanies > this.pageSize) {
+        <section ds-table-post-content>
+          <ds-paginator
+            [dsTotalRecords]="totalCompanies"
+            [dsPageIndex]="pageIndex"
+            [dsPageSize]="pageSize"
+            (dsOnPageChange)="onPageChanged($event)">
+          </ds-paginator>
+        </section>
+      }
+      <ng-template dsTableCustomColumn="status" let-item="item">
+        <section fxLayoutAlign="center center">
+          <ds-tag
+            [dsLabel]="getLabelSituacao(item.status)"
+            [dsExtendedState]="getStateSituacao(item.status)">
+          </ds-tag>
+        </section>
+      </ng-template>
+      <ng-template dsTableCustomColumn="actions" let-item="item">
+        <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="center center">
+          <ds-action-button
+            dsIconConfig="fa-solid fa-eye"
+            dsAriaLabel="Consultar"
+            [dsType]="dsActionButtonType.standard"
+            (dsOnClick)="search(item)">
+          </ds-action-button>
+          @if (item.status === 'INATIVO') {
+            <ds-action-button
+              dsIconConfig="fa-solid fa-trash-can-arrow-up"
+              dsAriaLabel="Reativar"
+              [dsType]="dsActionButtonType.standard"
+              (dsOnClick)="active(item)">
+            </ds-action-button>
+          }
+          @if (item.status === 'ATIVO') {
+            <ds-action-button
+              dsIconConfig="fa-solid fa-pen-to-square"
+              dsAriaLabel="Editar"
+              [dsType]="dsActionButtonType.standard"
+              (dsOnClick)="update(item)">
+            </ds-action-button>
+            <ds-action-button
+              dsIconConfig="fa-solid fa-trash-can"
+              dsAriaLabel="Deletar"
+              [dsType]="dsActionButtonType.standard"
+              (dsOnClick)="delete(item)">
+            </ds-action-button>
+          }
+        </section>
+      </ng-template>
+    </ds-table>
+  </section>
+</main>

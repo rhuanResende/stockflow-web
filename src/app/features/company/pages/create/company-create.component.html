@@ -1,0 +1,81 @@
+<main class="company">
+  <section class="ds-gap-md" fxLayout="column">
+    <form class="ds-mt-md ds-gap-md" [formGroup]="companyForm" fxLayout="column">
+      <ds-card-base
+        fxFlex
+        dsTitle="Dados Empresa"
+        dsIconBubbleIconConfig="fa-regular fa-building">
+        <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+          <ds-input-text
+            fxFlex
+            formControlName="name"
+            dsLabel="Nome"
+            dsPlaceholder="Nome empresa"
+            dsIconConfig="fa-regular fa-user"
+            [dsIconAlign]="dsInputIconAlign.left">
+          </ds-input-text>
+          <ds-input-document
+            fxFlex
+            formControlName="document"
+            dsLabel="CPF / CNPJ"
+            dsPlaceholder="Documento empresa"
+            dsIconConfig="fa-regular fa-id-card"
+            [dsIconAlign]="dsInputIconAlign.left"
+            [dsType]="dsDocumentType.cpfCnpj">
+          </ds-input-document>
+        </section>
+        <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+          <ds-input-text
+            fxFlex
+            formControlName="email"
+            dsLabel="E-mail"
+            dsPlaceholder="E-mail da empresa ou responsável"
+            dsIconConfig="fa-regular fa-envelope"
+            [dsIconAlign]="dsInputIconAlign.left">
+          </ds-input-text>
+          <ds-input-text
+            fxFlex
+            formControlName="phone"
+            dsLabel="Telefone"
+            dsPlaceholder="(62) 99999-9999"
+            dsMask="(00) 00000-0000"
+            dsIconConfig="fa-solid fa-phone"
+            [dsIconAlign]="dsInputIconAlign.left">
+          </ds-input-text>
+        </section>
+      </ds-card-base>
+      @if (!disabled) {
+        <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between stretch">
+          <section fxLayoutAlign="start center">
+            <ds-button
+              dsLabel="Voltar"
+              dsIconConfig="fa-solid fa-arrow-left"
+              [dsSize]="dsButtonSize.sm"
+              [dsType]="dsButtonType.tertiary"
+              [dsIconAlign]="dsButtonIconAlign.left"
+              (dsOnClick)="goToBack()">
+            </ds-button>
+          </section>
+
+          <section class="ds-gap-md" fxLayoutAlign="end center">
+            <ds-button
+              dsLabel="Limpar"
+              dsIconConfig="fa-regular fa-trash-can"
+              [dsType]="dsButtonType.secondary"
+              [dsIconAlign]="dsButtonIconAlign.left"
+              (dsOnClick)="clean()">
+            </ds-button>
+            <ds-button
+              dsIconConfig="fa-regular fa-plus"
+              [dsLabel]="companyId ? 'Editar' : 'Cadastrar'"
+              [dsFullWidth]="true"
+              [dsDisabled]="companyForm.invalid"
+              [dsIconAlign]="dsButtonIconAlign.left"
+              (dsOnClick)="create()">
+            </ds-button>
+          </section>
+        </section>
+      }
+    </form>
+  </section>
+</main>
