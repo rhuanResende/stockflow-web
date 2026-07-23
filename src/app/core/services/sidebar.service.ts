@@ -13,7 +13,7 @@ export class SidebarService {
     },
     {
       label: 'Empresas',
-      icon: 'fa-solid fa-house',
+      icon: 'fa-solid fa-building',
       route: '/pages/companies',
     },
     /*
@@ -52,13 +52,9 @@ export class SidebarService {
     },
   ];
 
-  public getMenyByPermission(profile: string, permissions: string[]): SidebarItem[] {
+  public getMenyByPermission(profile: string): SidebarItem[] {
     return this.MENU_ITEMS.filter((item) => {
-      const profileValid = !item.profiles?.length || item.profiles.includes(profile);
-      const permissionValid =
-        !item.permissions?.length ||
-        item.permissions.some((permission) => permissions.includes(permission));
-      return profileValid && permissionValid;
+      return !item.profiles?.length || item.profiles.includes(profile);
     });
   }
 }

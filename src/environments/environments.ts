@@ -5,5 +5,5 @@ export const environment: Environment = {
   appName: 'STOCKFLOW-WEB',
   envName: 'DEV',
   test: false,
-  baseUrl: 'http://localhost:8080',
+  baseUrl: 'http://localhost:8080/api/v1',
 };

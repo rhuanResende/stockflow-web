@@ -4,23 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class TokenStorageService {
-  private readonly TOKEN_TYPE_KEY = 'stockflow_token_type';
   private readonly TOKEN_KEY = 'stockflow_token';
-  private readonly USER_KEY = 'stockflow_user';
+  private readonly REFRESH_TOKEN_KEY = 'stockflow_refresh_token';
+  private readonly LOGIN_DATA_KEY = 'stockflow_data';
 
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-  }
-
-  saveTokenType(tokenType: string): void {
-    if (this.isBrowser()) {
-      localStorage.setItem(this.TOKEN_TYPE_KEY, tokenType);
-    }
-  }
-
-  getTokenType(): string | null {
-    if (!this.isBrowser()) return null;
-    return localStorage.getItem(this.TOKEN_TYPE_KEY);
   }
 
   saveToken(token: string): void {
@@ -34,18 +23,27 @@ export class TokenStorageService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  saveUser(user: any): void {
+  saveRefreshToken(token: string): void {
     if (this.isBrowser()) {
-      const { token_type, token, ...userWithoutSensitiveData } = user;
-      const userData = JSON.stringify(userWithoutSensitiveData);
-      localStorage.setItem(this.USER_KEY, userData);
+      localStorage.setItem(this.REFRESH_TOKEN_KEY, token);
     }
   }
 
-  getUser(): any {
+  getRefreshToken(): string | null {
     if (!this.isBrowser()) return null;
+    return localStorage.getItem(this.REFRESH_TOKEN_KEY);
+  }
 
-    const data = localStorage.getItem(this.USER_KEY);
+  saveLoginData(data: any): void {
+    if (this.isBrowser()) {
+      const userData = JSON.stringify(data);
+      localStorage.setItem(this.LOGIN_DATA_KEY, userData);
+    }
+  }
+
+  getLoginData() {
+    if (!this.isBrowser()) return null;
+    const data = localStorage.getItem(this.LOGIN_DATA_KEY);
     return data ? JSON.parse(data) : null;
   }
 
@@ -59,7 +57,7 @@ export class TokenStorageService {
     return !!this.getToken();
   }
 
-  getMustChangePassword(): boolean {
-    return this.getUser().mustChangePassword;
+  isFirstAccess(): boolean {
+    return true;
   }
 }

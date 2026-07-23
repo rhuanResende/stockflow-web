@@ -5,5 +5,5 @@ export const environment: Environment = {
   appName: 'STOCKFLOW-WEB',
   envName: 'HOM',
   test: false,
-  baseUrl: 'stockflow-service-homolog.up.railway.app',
+  baseUrl: 'stockflow-service-homolog.up.railway.app/api/v1',
 };

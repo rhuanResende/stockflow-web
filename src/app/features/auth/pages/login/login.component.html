@@ -1,0 +1,59 @@
+<main class="login">
+  <section
+    fxLayout="row"
+    fxLayout.lt-md="column">
+    <section
+      class="login__left-card"
+      fxFlex="60"
+      fxLayout="column"
+      fxLayoutAlign="center center">
+      <section
+        class="ds-gap-md login__left-card__content"
+        fxLayout="column"
+        fxLayoutAlign="center center">
+        <img
+          class="login__left-card__logo"
+          src="assets/images/logo_transparente.png"
+          alt="Stockflow"/>
+      </section>
+    </section>
+    <section
+      class="login__right-card"
+      fxFlex="40"
+      fxLayout="column"
+      fxLayoutAlign="center center">
+      <ds-card-base
+        class="login__right-card__card-base"
+        dsTitle="Acesse sua conta Stockflow"
+        dsIconBubbleIconConfig="fa-regular fa-user">
+        <section
+          fxLayout="column"
+          class="ds-gap-md">
+          <form
+            class="ds-mt-md ds-gap-md"
+            fxLayout="column"
+            [formGroup]="loginForm"
+            (keydown.enter)="onLogin()">
+            <ds-input-document
+              formControlName="document"
+              dsLabel="CPF"
+              dsPlaceholder="000.000.000-00"
+              [dsType]="dsDocumentType.cpf">
+            </ds-input-document>
+            <ds-input-password
+              formControlName="password"
+              dsLabel="Senha"
+              dsPlaceholder="Senha">
+            </ds-input-password>
+            <ds-button
+              dsLabel="Entrar"
+              [dsFullWidth]="true"
+              [dsDisabled]="loginForm.invalid"
+              (dsOnClick)="onLogin()">
+            </ds-button>
+          </form>
+        </section>
+      </ds-card-base>
+    </section>
+  </section>
+</main>

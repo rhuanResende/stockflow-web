@@ -15,6 +15,8 @@ import { DesignSystemModule } from '@rhuanResende/design-system';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 
 registerLocaleData(localePt, 'pt-BR');
 moment.locale('pt-br');
@@ -51,7 +53,7 @@ export const MY_DATE_FORMATS = {
     }),
   ],
   providers: [
-    provideHttpClient(withInterceptors([])),
+    provideHttpClient(withInterceptors([jwtInterceptor, loadingInterceptor])),
     provideNgxMask(),
     {
       provide: LOCALE_ID,

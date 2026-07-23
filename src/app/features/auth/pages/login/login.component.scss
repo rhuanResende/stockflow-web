@@ -1,0 +1,46 @@
+@use "@rhuanResende/design-system/styles/ds" as *;
+
+$login: "login";
+
+.#{$login} {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+
+  > section {
+    height: 100%;
+  }
+
+  &__left-card {
+    background: $ds-bg-primary;
+    color: $ds-text-primary;
+    padding: $ds-spacing-3xl;
+
+    &__content {
+      max-width: 500px;
+      text-align: center;
+    }
+
+    &__logo {
+      width: 400px;
+      margin-bottom: $ds-spacing-md;
+    }
+
+    &__title {
+      font-size: $ds-fs-2xl;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+  }
+
+  &__right-card {
+    color: $ds-text-primary;
+    padding: $ds-spacing-3xl;
+
+    &__card-base {
+      width: 70%;
+    }
+  }
+
+}

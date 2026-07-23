@@ -1,0 +1,7 @@
+@use "@rhuanResende/design-system/styles/ds" as *;
+
+$home: "home";
+
+.#{$home} {
+  padding: $ds-spacing-md;
+}

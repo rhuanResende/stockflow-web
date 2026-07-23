@@ -14,7 +14,7 @@ export class AppComponent extends DsComponent {
     private readonly themeService: DsThemeService,
   ) {
     super(injector);
-    this.contextService.initialize(true);
+    this.contextService.initialize('stockflow');
     this.themeService.setTheme(DsTheme.light);
   }
 }
