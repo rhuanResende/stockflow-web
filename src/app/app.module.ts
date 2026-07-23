@@ -10,7 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideNgxMask } from 'ngx-mask';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { environment } from '../environments/environments';
+import { environment } from '../environments/environment';
 import { DesignSystemModule } from '@rhuanResende/design-system';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
