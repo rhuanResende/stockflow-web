@@ -1,0 +1,273 @@
+<main class="user">
+
+  @if (profile === 'MASTER') {
+    <ng-container [ngTemplateOutlet]="masterTemplate"></ng-container>
+  } @else {
+    <ng-container [ngTemplateOutlet]="adminTemplate"></ng-container>
+  }
+
+  <ng-template #masterTemplate>
+    <section class="ds-gap-md" fxLayout="column">
+      <ds-table
+        [dsColumns]="columnsProfileMaster"
+        [dsItems]="users"
+        [dsEmptyStateText]="'Ainda não existem usuários cadastrados'">
+        <section ds-table-pre-content class="ds-gap-md">
+          <form class="ds-gap-md" [formGroup]="filterForm">
+            <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
+              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+                <ds-select
+                  fxFlex="50"
+                  formControlName="tenantId"
+                  dsOptionValueProp="id"
+                  dsOptionLabelProp="name"
+                  dsLabel="Empresa"
+                  dsPlaceholder="Busque pela empresa"
+                  [dsAriaLabel]="'Empresa'"
+                  [dsAppendTo]="'body'"
+                  [dsOptionList]="companies">
+                </ds-select>
+                <ds-select
+                  fxFlex="50"
+                  formControlName="profileId"
+                  dsOptionValueProp="id"
+                  dsOptionLabelProp="description"
+                  dsLabel="Perfil"
+                  dsPlaceholder="Buscar pela perfil"
+                  [dsAriaLabel]="'Perfil'"
+                  [dsAppendTo]="'body'"
+                  [dsOptionList]="profiles">
+                </ds-select>
+              </section>
+              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+                <ds-input-text
+                  fxFlex="50"
+                  formControlName="name"
+                  dsLabel="Nome"
+                  dsPlaceholder="Buscar pelo nome"
+                  dsIconConfig="fa-regular fa-user"
+                  [dsIconAlign]="dsInputIconAlign.left">
+                </ds-input-text>
+                <section class="ds-gap-md"  fxFlex="50">
+                  <ds-input-text
+                    fxFlex
+                    formControlName="document"
+                    dsLabel="CPF"
+                    dsPlaceholder="Buscar por CPF"
+                    dsIconConfig="fa-regular fa-id-card"
+                    [dsIconAlign]="dsInputIconAlign.left">
+                  </ds-input-text>
+                  <ds-select
+                    fxFlex
+                    formControlName="status"
+                    dsOptionValueProp="id"
+                    dsOptionLabelProp="label"
+                    dsLabel="Status"
+                    dsPlaceholder="Status"
+                    [dsAriaLabel]="'Status'"
+                    [dsAppendTo]="'body'"
+                    [dsOptionList]="statusList">
+                  </ds-select>
+                </section>
+              </section>
+              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
+                <ds-button
+                  dsLabel="Limpar filtros"
+                  dsIconConfig="fa-solid fa-filter-circle-xmark"
+                  [dsIconAlign]="dsButtonIconAlign.left"
+                  [dsSize]="dsButtonSize.md"
+                  [dsType]="dsButtonType.secondary"
+                  (dsOnClick)="filterClean()">
+                </ds-button>
+                <ds-button
+                  dsLabel="Nova solicitação"
+                  dsIconConfig="fa-solid fa-plus"
+                  [dsIconAlign]="dsButtonIconAlign.left"
+                  [dsSize]="dsButtonSize.md"
+                  (dsOnClick)="newRequest()">
+                </ds-button>
+              </section>
+            </section>
+          </form>
+        </section>
+        @if (totalUsers > this.pageSize) {
+          <section ds-table-post-content>
+            <ds-paginator
+              [dsTotalRecords]="totalUsers"
+              [dsPageIndex]="pageIndex"
+              [dsPageSize]="pageSize"
+              (dsOnPageChange)="onPageChanged($event)">
+            </ds-paginator>
+          </section>
+        }
+
+        <ng-template dsTableCustomColumn="status" let-item="item">
+          <section fxLayoutAlign="center center">
+            <ds-tag
+              [dsLabel]="getLabelSituacao(item.status)"
+              [dsExtendedState]="getStateSituacao(item.status)">
+            </ds-tag>
+          </section>
+        </ng-template>
+
+        <ng-template dsTableCustomColumn="actions" let-item="item">
+          <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="center center">
+            <ds-action-button
+              dsIconConfig="fa-solid fa-eye"
+              dsAriaLabel="Consultar"
+              [dsType]="dsActionButtonType.standard"
+              (dsOnClick)="search(item)">
+            </ds-action-button>
+            @if (item.status === 'INATIVO') {
+              <ds-action-button
+                dsIconConfig="fa-solid fa-trash-can-arrow-up"
+                dsAriaLabel="Reativar"
+                [dsType]="dsActionButtonType.standard"
+                (dsOnClick)="active(item)">
+              </ds-action-button>
+            }
+            @if (item.status === 'ATIVO') {
+              <ds-action-button
+                dsIconConfig="fa-solid fa-pen-to-square"
+                dsAriaLabel="Editar"
+                [dsType]="dsActionButtonType.standard"
+                (dsOnClick)="update(item)">
+              </ds-action-button>
+              <ds-action-button
+                dsIconConfig="fa-solid fa-trash-can"
+                dsAriaLabel="Deletar"
+                [dsType]="dsActionButtonType.standard"
+                (dsOnClick)="delete(item)">
+              </ds-action-button>
+            }
+          </section>
+        </ng-template>
+
+      </ds-table>
+    </section>
+  </ng-template>
+
+  <ng-template #adminTemplate>
+    <section class="ds-gap-md" fxLayout="column">
+      <ds-table
+        [dsColumns]="columnsUsers"
+        [dsItems]="users"
+        [dsEmptyStateText]="'Ainda não existem usuários cadastrados'">
+        <section ds-table-pre-content class="ds-gap-md">
+          <form class="ds-gap-md" [formGroup]="filterForm">
+            <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
+              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+                <ds-select
+                  fxFlex
+                  formControlName="profileId"
+                  dsOptionValueProp="id"
+                  dsOptionLabelProp="description"
+                  dsLabel="Perfil"
+                  dsPlaceholder="Buscar pelo perfil"
+                  [dsAriaLabel]="'Perfil'"
+                  [dsAppendTo]="'body'"
+                  [dsOptionList]="profiles">
+                </ds-select>
+                <ds-input-text
+                  fxFlex
+                  formControlName="name"
+                  dsLabel="Nome"
+                  dsPlaceholder="Buscar pelo nome">
+                </ds-input-text>
+              </section>
+              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+                <ds-input-text
+                  fxFlex
+                  formControlName="document"
+                  dsLabel="CPF"
+                  dsPlaceholder="Buscar por CPF">
+                </ds-input-text>
+                <ds-select
+                  fxFlex
+                  formControlName="status"
+                  dsOptionValueProp="id"
+                  dsOptionLabelProp="label"
+                  dsLabel="Status"
+                  dsPlaceholder="Status"
+                  [dsAriaLabel]="'Status'"
+                  [dsAppendTo]="'body'"
+                  [dsOptionList]="statusList">
+                </ds-select>
+              </section>
+              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
+                <ds-button
+                  dsLabel="Limpar filtros"
+                  dsIconConfig="fa-solid fa-filter"
+                  [dsIconAlign]="dsButtonIconAlign.left"
+                  [dsSize]="dsButtonSize.md"
+                  [dsType]="dsButtonType.secondary"
+                  (dsOnClick)="filterClean()">
+                </ds-button>
+                <ds-button
+                  dsLabel="Nova solicitação"
+                  dsIconConfig="fa-solid fa-plus"
+                  [dsIconAlign]="dsButtonIconAlign.left"
+                  [dsSize]="dsButtonSize.md"
+                  (dsOnClick)="newRequest()">
+                </ds-button>
+              </section>
+            </section>
+          </form>
+        </section>
+        @if (totalUsers > this.pageSize) {
+          <section ds-table-post-content>
+            <ds-paginator
+              [dsTotalRecords]="totalUsers"
+              [dsPageIndex]="pageIndex"
+              [dsPageSize]="pageSize"
+              (dsOnPageChange)="onPageChanged($event)">
+            </ds-paginator>
+          </section>
+        }
+
+        <ng-template dsTableCustomColumn="status" let-item="item">
+          <section fxLayoutAlign="center center">
+            <ds-tag
+              [dsLabel]="getLabelSituacao(item.status)"
+              [dsExtendedState]="getStateSituacao(item.status)">
+            </ds-tag>
+          </section>
+        </ng-template>
+
+        <ng-template dsTableCustomColumn="actions" let-item="item">
+          <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="center center">
+            <ds-action-button
+              dsIconConfig="fa-solid fa-eye"
+              dsAriaLabel="Consultar"
+              [dsType]="dsActionButtonType.standard"
+              (dsOnClick)="search(item)">
+            </ds-action-button>
+            @if (item.status === 'INATIVO') {
+              <ds-action-button
+                dsIconConfig="fa-solid fa-trash-can-arrow-up"
+                dsAriaLabel="Reativar"
+                [dsType]="dsActionButtonType.standard"
+                (dsOnClick)="active(item)">
+              </ds-action-button>
+            }
+            @if (item.status === 'ATIVO') {
+              <ds-action-button
+                dsIconConfig="fa-solid fa-pen-to-square"
+                dsAriaLabel="Editar"
+                [dsType]="dsActionButtonType.standard"
+                (dsOnClick)="update(item)">
+              </ds-action-button>
+              <ds-action-button
+                dsIconConfig="fa-solid fa-trash-can"
+                dsAriaLabel="Deletar"
+                [dsType]="dsActionButtonType.standard"
+                (dsOnClick)="delete(item)">
+              </ds-action-button>
+            }
+          </section>
+        </ng-template>
+
+      </ds-table>
+    </section>
+  </ng-template>
+</main>

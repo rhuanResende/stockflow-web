@@ -25,3 +25,10 @@ export interface LogoutRequest {
 export interface RefreshTokenRequest {
   refreshToken: string;
 }
+
+export interface RoleResponse {
+  id: string;
+  name: string;
+  description: string;
+  status: string;
+}

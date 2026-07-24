@@ -9,3 +9,22 @@ export interface UserResponse {
   company: CompanyResponse;
   profile: string;
 }
+
+export interface UserCreateRequest {
+  companyId: string;
+  profileId: string;
+  name: string;
+  document: string;
+  email: string;
+  phone: string;
+}
+
+export interface UserUpdateRequest {
+  id: string;
+  companyId: string;
+  profileId: string;
+  name: string;
+  document: string;
+  email: string;
+  phone: string;
+}
