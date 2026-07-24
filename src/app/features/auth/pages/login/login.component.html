@@ -38,12 +38,16 @@
               formControlName="document"
               dsLabel="CPF"
               dsPlaceholder="000.000.000-00"
+              dsIconConfig="fa-regular fa-id-card"
+              [dsIconAlign]="dsInputIconAlign.left"
               [dsType]="dsDocumentType.cpf">
             </ds-input-document>
             <ds-input-password
               formControlName="password"
               dsLabel="Senha"
-              dsPlaceholder="Senha">
+              dsPlaceholder="Senha"
+              dsIconConfig="fa-solid fa-key"
+              [dsIconAlign]="dsInputIconAlign.left">
             </ds-input-password>
             <ds-button
               dsLabel="Entrar"

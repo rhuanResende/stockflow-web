@@ -1,0 +1,13 @@
+@use "@rhuanResende/design-system/styles/ds" as *;
+
+$user: "user";
+
+.#{$user} {
+  padding: $ds-spacing-md;
+
+  &__table {
+    &__title {
+      color: $ds-text-neutral-primary;
+    }
+  }
+}

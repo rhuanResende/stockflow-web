@@ -13,6 +13,8 @@
                 formControlName="name"
                 dsLabel="Nome"
                 dsPlaceholder="Buscar por nome"
+                dsIconConfig="fa-regular fa-user"
+                [dsIconAlign]="dsInputIconAlign.left"
                 [dsUppercaseValue]="true">
               </ds-input-text>
               <ds-input-text
@@ -20,6 +22,8 @@
                 formControlName="document"
                 dsLabel="CPF/CNPJ"
                 dsPlaceholder="Buscar por CPF/CNPJ"
+                dsIconConfig="fa-regular fa-id-card"
+                [dsIconAlign]="dsInputIconAlign.left"
                 [dsUppercaseValue]="true">
               </ds-input-text>
               <ds-select
@@ -37,7 +41,7 @@
             <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
               <ds-button
                 dsLabel="Limpar filtros"
-                dsIconConfig="fa-solid fa-filter"
+                dsIconConfig="fa-solid fa-filter-circle-xmark"
                 [dsIconAlign]="dsButtonIconAlign.left"
                 [dsSize]="dsButtonSize.md"
                 [dsType]="dsButtonType.secondary"

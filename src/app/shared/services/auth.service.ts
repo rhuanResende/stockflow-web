@@ -9,7 +9,7 @@ import {
   LoginResponse,
   LogoutRequest,
   NewPasswordRequest,
-  RefreshTokenRequest,
+  RefreshTokenRequest, RoleResponse
 } from '../models/auth.model';
 import { UserResponse } from '../models/users.model';
 import { UserAuthenticatedService } from './user-authenticated.service';
@@ -72,5 +72,10 @@ export class AuthService {
         }
       }),
     );
+  }
+
+  getRoles(): Observable<ApiResponse<RoleResponse[]>> {
+    const url = `${this.urlAuth}/findRoles`;
+    return this.http.get<ApiResponse<RoleResponse[]>>(url);
   }
 }

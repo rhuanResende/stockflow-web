@@ -15,14 +15,15 @@ export class SidebarService {
       label: 'Empresas',
       icon: 'fa-solid fa-building',
       route: '/pages/companies',
-      profiles: ['MASTER']
+      profiles: ['MASTER'],
+    },
+    {
+      label: 'Usuários',
+      icon: 'fa-solid fa-users',
+      route: '/pages/users',
+      profiles: ['MASTER', 'ADMIN'],
     },
     /*
-    {
-      label: 'Usuarios',
-      icon: 'fa-solid fa-house',
-      route: '/pages/users',
-    },
     {
       label: 'Produtos',
       icon: 'fa-solid fa-barcode',
