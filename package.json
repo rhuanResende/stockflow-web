@@ -32,7 +32,7 @@
     "@ng-select/ng-select": "^21.8.1",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
-    "@rhuanResende/design-system": "^1.0.28",
+    "@rhuanResende/design-system": "^1.0.30",
     "@sweetalert2/ngx-sweetalert2": "^14.0.0",
     "bootstrap": "^5.3.8",
     "br-validations": "^0.3.1",
