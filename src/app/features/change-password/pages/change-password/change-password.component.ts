@@ -20,6 +20,8 @@ export class ChangePasswordComponent extends DsComponent implements OnInit, OnDe
 
   passwordForm!: FormGroup;
 
+  protected readonly dsInputIconAlign = DsInputIconAlign;
+
   constructor(
     injector: Injector,
     private readonly fb: FormBuilder,
@@ -55,7 +57,7 @@ export class ChangePasswordComponent extends DsComponent implements OnInit, OnDe
           return;
         }
       },
-      error: (err) => this.handlerError(err)
+      error: (err) => this.handlerError(err),
     });
   }
 
@@ -92,7 +94,5 @@ export class ChangePasswordComponent extends DsComponent implements OnInit, OnDe
       positionClass: 'toast-top-right',
     });
   }
-
-  protected readonly dsInputIconAlign = DsInputIconAlign;
 }
 
