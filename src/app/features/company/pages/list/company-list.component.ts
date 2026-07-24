@@ -8,6 +8,7 @@ import {
   DsColumnType,
   DsComponent,
   DsExtendedState,
+  DsInputIconAlign,
   DsPageState,
 } from '@rhuanResende/design-system';
 import { debounceTime, distinctUntilChanged, Subject, switchMap, takeUntil } from 'rxjs';
@@ -191,4 +192,6 @@ export class CompanyListComponent extends DsComponent implements OnInit, OnDestr
       positionClass: 'toast-top-right',
     });
   }
+
+  protected readonly dsInputIconAlign = DsInputIconAlign;
 }

@@ -1,5 +1,5 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { DsComponent } from '@rhuanResende/design-system';
+import { DsComponent, DsInputIconAlign } from '@rhuanResende/design-system';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -92,5 +92,7 @@ export class ChangePasswordComponent extends DsComponent implements OnInit, OnDe
       positionClass: 'toast-top-right',
     });
   }
+
+  protected readonly dsInputIconAlign = DsInputIconAlign;
 }
 
