@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [authGuard, changePasswordGuard],
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'change-password',
-    canActivate: [authGuard],
+    canActivate: [changePasswordGuard],
     loadChildren: () =>
       import('./change-password/change-password.module').then((m) => m.ChangePasswordModule),
   },

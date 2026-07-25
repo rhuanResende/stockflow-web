@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DsComponent, DsDocumentType, DsInputIconAlign } from '@rhuanResende/design-system';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent extends DsComponent {
   loginForm: FormGroup;
 
-  dsDocumentType: typeof DsDocumentType = DsDocumentType;
+  protected readonly dsDocumentType: typeof DsDocumentType = DsDocumentType;
+  protected readonly dsInputIconAlign = DsInputIconAlign;
 
   constructor(
     injector: Injector,
@@ -36,30 +38,30 @@ export class LoginComponent extends DsComponent {
       return;
     }
 
-    this.authService.login(this.loginForm.value as any).subscribe({
-      next: (response) => {
-        if (response.success) {
-          if (response.data.firstAccess) {
+    this.authService
+      .login(this.loginForm.value as any)
+      .pipe(
+        switchMap((response) => {
+          if (!response.success) {
+            const message = response?.message ?? response?.message ?? 'Ocorreu um erro inesperado';
+            this.toastrService.error(message, 'Erro!', {
+              positionClass: 'toast-top-right',
+            });
+          }
+
+          return this.authService.getMe();
+        }),
+      )
+      .subscribe({
+        next: (response) => {
+          if (response.data.firstAccess || response.data.forcePasswordChange) {
             this.router.navigate(['/pages/change-password']);
             return;
           }
-          this.getUser();
-        }
-      },
-      error: (err) => this.handlerError(err),
-    });
-  }
-
-  private getUser(): void {
-    this.authService.getMe().subscribe({
-      next: (response) => {
-        if (response.success) {
           this.router.navigate(['/pages/home']);
-          return;
-        }
-      },
-      error: (err) => this.handlerError(err),
-    });
+        },
+        error: (err) => this.handlerError(err),
+      });
   }
 
   private handlerError(error: any): void {
@@ -68,6 +70,4 @@ export class LoginComponent extends DsComponent {
       positionClass: 'toast-top-right',
     });
   }
-
-  protected readonly dsInputIconAlign = DsInputIconAlign;
 }
