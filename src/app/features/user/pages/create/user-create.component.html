@@ -2,7 +2,7 @@
 
   <section class="ds-gap-md" fxLayout="column">
 
-    <form class="ds-mt-md ds-gap-md" [formGroup]="userForm" fxLayout="column">
+    <form class="ds-gap-md" [formGroup]="userForm" fxLayout="column">
 
       @if (this.profile === 'MASTER') {
         <ds-card-base
@@ -27,7 +27,12 @@
         fxFlex
         dsTitle="Dados do usuário"
         dsIconBubbleIconConfig="fa-solid fa-user">
-        <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+        <section
+          class="ds-gap-md"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="space-between center"
+          fxLayoutAlign.lt-md="space-between stretch">
           <ds-input-text
             fxFlex
             formControlName="name"
@@ -46,7 +51,12 @@
             [dsType]="dsDocumentType.cpf">
           </ds-input-document>
         </section>
-        <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+        <section
+          class="ds-gap-md"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="space-between center"
+          fxLayoutAlign.lt-md="space-between stretch">
           <ds-input-text
             fxFlex
             formControlName="email"
@@ -82,22 +92,31 @@
           [dsOptionList]="profiles">
         </ds-select>
       </ds-card-base>
-      <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between stretch">
-        <section class="ds-gap-md" fxLayoutAlign="start center">
-          <ds-button
-            dsLabel="Voltar"
-            dsIconConfig="fa-solid fa-arrow-left"
-            [dsSize]="dsButtonSize.sm"
-            [dsType]="dsButtonType.tertiary"
-            [dsIconAlign]="dsButtonIconAlign.left"
-            (dsOnClick)="goToBack()">
-          </ds-button>
-        </section>
+      <section
+        class="ds-gap-md"
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between stretch">
+        <ds-button
+          dsLabel="Voltar"
+          dsIconConfig="fa-solid fa-arrow-left"
+          [dsFullWidth]="true"
+          [dsSize]="dsButtonSize.sm"
+          [dsType]="dsButtonType.tertiary"
+          [dsIconAlign]="dsButtonIconAlign.left"
+          (dsOnClick)="goToBack()">
+        </ds-button>
         @if (!disabled) {
-          <section class="ds-gap-md" fxLayoutAlign="end center">
+          <section
+            class="ds-gap-md"
+            fxLayout="row"
+            fxLayout.lt-md="column"
+            fxLayoutAlign="end center"
+            fxLayoutAlign.lt-md="space-between stretch">
             <ds-button
               dsLabel="Limpar"
               dsIconConfig="fa-regular fa-trash-can"
+              [dsFullWidth]="true"
               [dsType]="dsButtonType.secondary"
               [dsIconAlign]="dsButtonIconAlign.left"
               (dsOnClick)="clean()">

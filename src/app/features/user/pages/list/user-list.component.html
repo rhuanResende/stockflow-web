@@ -15,7 +15,12 @@
         <section ds-table-pre-content class="ds-gap-md">
           <form class="ds-gap-md" [formGroup]="filterForm">
             <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
-              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+              <section
+                class="ds-gap-md"
+                fxLayout="row"
+                fxLayout.lt-md="column"
+                fxLayoutAlign="space-between center"
+                fxLayoutAlign.lt-md="space-between stretch">
                 <ds-select
                   fxFlex="50"
                   formControlName="tenantId"
@@ -39,7 +44,12 @@
                   [dsOptionList]="profiles">
                 </ds-select>
               </section>
-              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+              <section
+                class="ds-gap-md"
+                fxLayout="row"
+                fxLayout.lt-md="column"
+                fxLayoutAlign="space-between center"
+                fxLayoutAlign.lt-md="space-between stretch">
                 <ds-input-text
                   fxFlex="50"
                   formControlName="name"
@@ -48,7 +58,13 @@
                   dsIconConfig="fa-regular fa-user"
                   [dsIconAlign]="dsInputIconAlign.left">
                 </ds-input-text>
-                <section class="ds-gap-md"  fxFlex="50">
+                <section
+                  class="ds-gap-md"
+                  fxFlex="50"
+                  fxLayout="row"
+                  fxLayout.lt-md="column"
+                  fxLayoutAlign="space-between center"
+                  fxLayoutAlign.lt-md="space-between stretch">
                   <ds-input-text
                     fxFlex
                     formControlName="document"
@@ -70,10 +86,16 @@
                   </ds-select>
                 </section>
               </section>
-              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
+              <section
+                class="ds-gap-md"
+                fxLayout="row"
+                fxLayout.lt-md="column"
+                fxLayoutAlign="end center"
+                fxLayoutAlign.lt-md="space-between stretch">
                 <ds-button
                   dsLabel="Limpar filtros"
                   dsIconConfig="fa-solid fa-filter-circle-xmark"
+                  [dsFullWidth]="true"
                   [dsIconAlign]="dsButtonIconAlign.left"
                   [dsSize]="dsButtonSize.md"
                   [dsType]="dsButtonType.secondary"
@@ -82,6 +104,7 @@
                 <ds-button
                   dsLabel="Nova solicitação"
                   dsIconConfig="fa-solid fa-plus"
+                  [dsFullWidth]="true"
                   [dsIconAlign]="dsButtonIconAlign.left"
                   [dsSize]="dsButtonSize.md"
                   (dsOnClick)="newRequest()">
@@ -156,7 +179,11 @@
         <section ds-table-pre-content class="ds-gap-md">
           <form class="ds-gap-md" [formGroup]="filterForm">
             <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
-              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+              <section
+                class="ds-gap-md"
+                fxLayout="row"
+                fxLayout.lt-md="column"
+                fxLayoutAlign="space-between center">
                 <ds-select
                   fxFlex
                   formControlName="profileId"
