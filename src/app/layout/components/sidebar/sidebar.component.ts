@@ -64,10 +64,9 @@ export class SidebarComponent extends DsComponent implements OnInit {
       refreshToken: this.tokenStorageService.getRefreshToken(),
     };
 
-    this.authService.logout(body).subscribe({
+    this.authService.logout().subscribe({
       next: (res) => {
         if (res.success) {
-          this.tokenStorageService.clear();
           this.router.navigate(['/']);
         }
       },

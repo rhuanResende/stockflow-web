@@ -1,16 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { TokenStorageService } from '../../core/services/token-storage.service';
 import { Environment } from '../../core/models/environment';
 import { ApiResponse } from '../../core/models/api-response.model';
-import {
-  LoginRequest,
-  LoginResponse,
-  LogoutRequest,
-  NewPasswordRequest,
-  RefreshTokenRequest, RoleResponse
-} from '../models/auth.model';
+import { LoginRequest, NewPasswordRequest, RoleResponse } from '../models/auth.model';
 import { UserResponse } from '../models/users.model';
 import { UserAuthenticatedService } from './user-authenticated.service';
 
@@ -23,22 +16,17 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     @Inject('ENVIRONMENT') private environment: Environment,
-    private tokenStorage: TokenStorageService,
     private usuarioAutenticado: UserAuthenticatedService,
   ) {
     this.urlAuth = this.environment.baseUrl + '/auth';
   }
 
-  login(request: LoginRequest): Observable<ApiResponse<LoginResponse>> {
-    return this.http.post<ApiResponse<LoginResponse>>(`${this.urlAuth}/login`, request).pipe(
-      tap((response) => {
-        if (response.success) {
-          this.tokenStorage.saveToken(response.data.accessToken);
-          this.tokenStorage.saveRefreshToken(response.data.refreshToken);
-          this.tokenStorage.saveLoginData(response.data);
-        }
-      }),
-    );
+  login(request: LoginRequest): Observable<ApiResponse<void>> {
+    return this.http.post<ApiResponse<void>>(`${this.urlAuth}/login`, request);
+  }
+
+  refreshToken(): Observable<ApiResponse<void>> {
+    return this.http.post<ApiResponse<void>>(`${this.urlAuth}/refresh`, null);
   }
 
   getMe(): Observable<ApiResponse<UserResponse>> {
@@ -57,21 +45,9 @@ export class AuthService {
     return this.http.post<ApiResponse<void>>(url, request);
   }
 
-  logout(request: LogoutRequest): Observable<ApiResponse<void>> {
+  logout(): Observable<ApiResponse<void>> {
     const url = `${this.urlAuth}/logout`;
-    return this.http.post<ApiResponse<void>>(url, request);
-  }
-
-  refreshToken(request: RefreshTokenRequest): Observable<ApiResponse<LoginResponse>> {
-    return this.http.post<ApiResponse<LoginResponse>>(`${this.urlAuth}/refresh`, request).pipe(
-      tap((response) => {
-        if (response.success) {
-          this.tokenStorage.saveToken(response.data.accessToken);
-          this.tokenStorage.saveRefreshToken(response.data.refreshToken);
-          this.tokenStorage.saveLoginData(response.data);
-        }
-      }),
-    );
+    return this.http.post<ApiResponse<void>>(url, null);
   }
 
   getRoles(): Observable<ApiResponse<RoleResponse[]>> {

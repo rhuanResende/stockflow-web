@@ -1,16 +1,25 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { TokenStorageService } from '../services/token-storage.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { catchError, map, of } from 'rxjs';
 
-export const changePasswordGuard: CanActivateFn = (route, state) => {
-  const tokenStorage = inject(TokenStorageService);
+export const changePasswordGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
   const router = inject(Router);
 
-  const mustChangePassword = tokenStorage.isFirstAccess();
+  return authService.getMe().pipe(
+    map((response) => {
+      const user = response.data;
 
-  if (!mustChangePassword && state.url !== '/change-password') {
-    return router.createUrlTree(['/pages/change-password']);
-  }
+      if (user.firstAccess || user.forcePasswordChange) {
+        return true;
+      }
 
-  return true;
+      return router.createUrlTree(['/pages/home']);
+    }),
+
+    catchError(() => {
+      return of(router.createUrlTree(['/pages/login']));
+    }),
+  );
 };

@@ -8,6 +8,9 @@ export interface UserResponse {
   phone: string;
   company: CompanyResponse;
   profile: string;
+  status: string;
+  firstAccess: boolean;
+  forcePasswordChange: boolean;
 }
 
 export interface UserCreateRequest {
