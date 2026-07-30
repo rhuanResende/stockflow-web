@@ -1,3 +1,55 @@
+<main class="not-found">
+  <section fxLayout="column" fxLayoutAlign="space-between stretch">
+    <section class="ds-gap-md" fxLayout="column">
+      <section
+        fxLayout="row"
+        fxLayoutAlign="center center">
+        <img
+          class="not-found__logo"
+          src="assets/images/logo_transparente.png"
+          alt="Stockbeer">
+      </section>
+      <section
+        fxLayout="row"
+        fxLayoutAlign="center center">
+        <ds-card-base
+          fxLayout="40"
+          fxLayout.lt-md="90"
+          dsTitle="Página não encontrada"
+          dsIconBubbleIconConfig="fa-solid fa-triangle-exclamation"
+          [dsIconBubbleState]="dsIconBubbleState.error">
+          <section
+            fxFlex
+            class="ds-gap-md"
+            fxLayout="column">
+            <section class="not-found__content__title" fxLayout="row" fxLayoutAlign="center center">
+              <h1>404</h1>
+            </section>
+            <span>
+              Não foi possível localizar o recurso solicitado.
+              Verifique o endereço informado ou retorne ao painel principal do sistema.
+            </span>
+            <section fxLayoutAlign="center center">
+              <ds-button
+                dsLabel="Voltar"
+                dsIconConfig="fa-solid fa-arrow-left"
+                [dsFullWidth]="true"
+                [dsSize]="dsButtonSize.sm"
+                [dsType]="dsButtonType.tertiary"
+                [dsIconAlign]="dsButtonIconAlign.left"
+                (dsOnClick)="goBack()">
+              </ds-button>
+            </section>
+          </section>
+        </ds-card-base>
+      </section>
+    </section>
+  </section>
+</main>
+
+
+
+<!--
 <div class="ds-not-found">
   <div class="ds-not-found__box">
     <div class="ds-not-found__code">404</div>
@@ -12,13 +64,14 @@
     </div>
 
     <div class="ds-not-found__actions">
-      <button class="ds-button ds-button--primary" routerLink="/pages/home">
+      <button class="ds-button ds-button&#45;&#45;primary" routerLink="/pages/home">
         Ir para Home
       </button>
 
-      <button class="ds-button ds-button--secondary" onclick="history.back()">
+      <button class="ds-button ds-button&#45;&#45;secondary" (click)="goBack()">
         Voltar
       </button>
     </div>
   </div>
 </div>
+-->

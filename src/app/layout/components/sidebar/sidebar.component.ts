@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { DsActionButtonType, DsComponent, isNull } from '@rhuanResende/design-system';
 import { Router } from '@angular/router';
 import { SidebarItem } from '../../../core/models/sidebar.model';
@@ -20,6 +20,7 @@ export class SidebarComponent extends DsComponent implements OnInit {
   public user!: UserResponse;
   public firstName!: string;
   public isCollapsed = false;
+  public isMobile = false;
 
   public menuItems: SidebarItem[] = [];
 
@@ -37,7 +38,13 @@ export class SidebarComponent extends DsComponent implements OnInit {
     super(injector);
   }
 
+  @HostListener('window:resize')
+  onResize(): void {
+    this.checkScreenSize();
+  }
+
   override ngOnInit(): void {
+    this.checkScreenSize();
     this.user = this.userAuthenticatedService.getUser();
     if (isNull(this.user)) {
       this.logout();
@@ -56,6 +63,14 @@ export class SidebarComponent extends DsComponent implements OnInit {
       case 'logout':
         this.logout();
         break;
+    }
+  }
+
+  private checkScreenSize(): void {
+    this.isMobile = window.innerWidth <= 768;
+
+    if (this.isMobile) {
+      this.isCollapsed = true;
     }
   }
 

@@ -1,20 +1,18 @@
-<main class="user">
-
+<main class="product">
   @if (profile === 'MASTER') {
     <ng-container [ngTemplateOutlet]="masterTemplate"></ng-container>
   } @else {
-    <ng-container [ngTemplateOutlet]="adminTemplate"></ng-container>
+    <ng-container [ngTemplateOutlet]="userTemplate"></ng-container>
   }
-
   <ng-template #masterTemplate>
     <section class="ds-gap-md" fxLayout="column">
       <ds-table
-        [dsColumns]="columnsProfileMaster"
-        [dsItems]="users"
-        [dsEmptyStateText]="'Ainda não existem usuários cadastrados'">
+        [dsColumns]="masterColumns"
+        [dsItems]="products"
+        [dsEmptyStateText]="'Nenhum produto encontrado.'">
         <section ds-table-pre-content class="ds-gap-md">
           <form class="ds-gap-md" [formGroup]="filterForm">
-            <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
+            <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-batween stretch">
               <section
                 class="ds-gap-md"
                 fxLayout="row"
@@ -23,7 +21,7 @@
                 fxLayoutAlign.lt-md="space-between stretch">
                 <ds-select
                   fxFlex="50"
-                  formControlName="tenantId"
+                  formControlName="company"
                   dsOptionValueProp="id"
                   dsOptionLabelProp="name"
                   dsLabel="Empresa"
@@ -32,17 +30,13 @@
                   [dsAppendTo]="'body'"
                   [dsOptionList]="companies">
                 </ds-select>
-                <ds-select
+                <ds-input-text
                   fxFlex="50"
-                  formControlName="profileId"
-                  dsOptionValueProp="id"
-                  dsOptionLabelProp="description"
-                  dsLabel="Perfil"
-                  dsPlaceholder="Buscar pela perfil"
-                  [dsAriaLabel]="'Perfil'"
-                  [dsAppendTo]="'body'"
-                  [dsOptionList]="profiles">
-                </ds-select>
+                  formControlName="name"
+                  dsLabel="Nome"
+                  dsPlaceholder="Buscar por nome"
+                  [dsUppercaseValue]="true">
+                </ds-input-text>
               </section>
               <section
                 class="ds-gap-md"
@@ -51,40 +45,30 @@
                 fxLayoutAlign="space-between center"
                 fxLayoutAlign.lt-md="space-between stretch">
                 <ds-input-text
-                  fxFlex="50"
-                  formControlName="name"
-                  dsLabel="Nome"
-                  dsPlaceholder="Buscar pelo nome"
-                  dsIconConfig="fa-regular fa-user"
-                  [dsIconAlign]="dsInputIconAlign.left">
+                  fxFlex
+                  formControlName="sku"
+                  dsLabel="Código do produto"
+                  dsPlaceholder="Buscar pelo código do produto"
+                  [dsUppercaseValue]="true">
                 </ds-input-text>
-                <section
-                  class="ds-gap-md"
-                  fxFlex="50"
-                  fxLayout="row"
-                  fxLayout.lt-md="column"
-                  fxLayoutAlign="space-between center"
-                  fxLayoutAlign.lt-md="space-between stretch">
-                  <ds-input-text
-                    fxFlex
-                    formControlName="document"
-                    dsLabel="CPF"
-                    dsPlaceholder="Buscar por CPF"
-                    dsIconConfig="fa-regular fa-id-card"
-                    [dsIconAlign]="dsInputIconAlign.left">
-                  </ds-input-text>
-                  <ds-select
-                    fxFlex
-                    formControlName="status"
-                    dsOptionValueProp="id"
-                    dsOptionLabelProp="label"
-                    dsLabel="Status"
-                    dsPlaceholder="Status"
-                    [dsAriaLabel]="'Status'"
-                    [dsAppendTo]="'body'"
-                    [dsOptionList]="statusList">
-                  </ds-select>
-                </section>
+                <ds-input-text
+                  fxFlex
+                  formControlName="barcode"
+                  dsLabel="Código de barras"
+                  dsPlaceholder="Buscar pelo código de barras"
+                  [dsUppercaseValue]="true">
+                </ds-input-text>
+                <ds-select
+                  fxFlex
+                  formControlName="status"
+                  dsOptionValueProp="id"
+                  dsOptionLabelProp="label"
+                  dsLabel="Status"
+                  dsPlaceholder="Status"
+                  [dsAriaLabel]="'Status'"
+                  [dsAppendTo]="'body'"
+                  [dsOptionList]="statusList">
+                </ds-select>
               </section>
               <section
                 class="ds-gap-md"
@@ -113,17 +97,16 @@
             </section>
           </form>
         </section>
-        @if (totalUsers > this.pageSize) {
+        @if (totalProducts > this.pageSize) {
           <section ds-table-post-content>
             <ds-paginator
-              [dsTotalRecords]="totalUsers"
+              [dsTotalRecords]="totalProducts"
               [dsPageIndex]="pageIndex"
               [dsPageSize]="pageSize"
               (dsOnPageChange)="onPageChanged($event)">
             </ds-paginator>
           </section>
         }
-
         <ng-template dsTableCustomColumn="status" let-item="item">
           <section fxLayoutAlign="center center">
             <ds-tag
@@ -132,7 +115,6 @@
             </ds-tag>
           </section>
         </ng-template>
-
         <ng-template dsTableCustomColumn="actions" let-item="item">
           <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="center center">
             <ds-action-button
@@ -165,49 +147,52 @@
             }
           </section>
         </ng-template>
-
       </ds-table>
     </section>
   </ng-template>
 
-  <ng-template #adminTemplate>
+  <ng-template #userTemplate>
     <section class="ds-gap-md" fxLayout="column">
       <ds-table
-        [dsColumns]="columnsUsers"
-        [dsItems]="users"
-        [dsEmptyStateText]="'Ainda não existem usuários cadastrados'">
+        [dsColumns]="userColumns"
+        [dsItems]="products"
+        [dsEmptyStateText]="'Nenhum produto encontrado.'">
         <section ds-table-pre-content class="ds-gap-md">
           <form class="ds-gap-md" [formGroup]="filterForm">
-            <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
+            <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-batween stretch">
               <section
                 class="ds-gap-md"
                 fxLayout="row"
                 fxLayout.lt-md="column"
-                fxLayoutAlign="space-between center">
-                <ds-select
-                  fxFlex
-                  formControlName="profileId"
-                  dsOptionValueProp="id"
-                  dsOptionLabelProp="description"
-                  dsLabel="Perfil"
-                  dsPlaceholder="Buscar pelo perfil"
-                  [dsAriaLabel]="'Perfil'"
-                  [dsAppendTo]="'body'"
-                  [dsOptionList]="profiles">
-                </ds-select>
+                fxLayoutAlign="space-between center"
+                fxLayoutAlign.lt-md="space-between stretch">
                 <ds-input-text
                   fxFlex
                   formControlName="name"
                   dsLabel="Nome"
-                  dsPlaceholder="Buscar pelo nome">
+                  dsPlaceholder="Buscar por nome"
+                  [dsUppercaseValue]="true">
                 </ds-input-text>
-              </section>
-              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
                 <ds-input-text
                   fxFlex
-                  formControlName="document"
-                  dsLabel="CPF"
-                  dsPlaceholder="Buscar por CPF">
+                  formControlName="sku"
+                  dsLabel="Código do produto"
+                  dsPlaceholder="Buscar pelo código do produto"
+                  [dsUppercaseValue]="true">
+                </ds-input-text>
+              </section>
+              <section
+                class="ds-gap-md"
+                fxLayout="row"
+                fxLayout.lt-md="column"
+                fxLayoutAlign="space-between center"
+                fxLayoutAlign.lt-md="space-between stretch">
+                <ds-input-text
+                  fxFlex
+                  formControlName="barcode"
+                  dsLabel="Código de barras"
+                  dsPlaceholder="Buscar pelo código de barras"
+                  [dsUppercaseValue]="true">
                 </ds-input-text>
                 <ds-select
                   fxFlex
@@ -221,10 +206,16 @@
                   [dsOptionList]="statusList">
                 </ds-select>
               </section>
-              <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
+              <section
+                class="ds-gap-md"
+                fxLayout="row"
+                fxLayout.lt-md="column"
+                fxLayoutAlign="end center"
+                fxLayoutAlign.lt-md="space-between stretch">
                 <ds-button
                   dsLabel="Limpar filtros"
-                  dsIconConfig="fa-solid fa-filter"
+                  dsIconConfig="fa-solid fa-filter-circle-xmark"
+                  [dsFullWidth]="true"
                   [dsIconAlign]="dsButtonIconAlign.left"
                   [dsSize]="dsButtonSize.md"
                   [dsType]="dsButtonType.secondary"
@@ -233,6 +224,7 @@
                 <ds-button
                   dsLabel="Nova solicitação"
                   dsIconConfig="fa-solid fa-plus"
+                  [dsFullWidth]="true"
                   [dsIconAlign]="dsButtonIconAlign.left"
                   [dsSize]="dsButtonSize.md"
                   (dsOnClick)="newRequest()">
@@ -241,17 +233,16 @@
             </section>
           </form>
         </section>
-        @if (totalUsers > this.pageSize) {
+        @if (totalProducts > this.pageSize) {
           <section ds-table-post-content>
             <ds-paginator
-              [dsTotalRecords]="totalUsers"
+              [dsTotalRecords]="totalProducts"
               [dsPageIndex]="pageIndex"
               [dsPageSize]="pageSize"
               (dsOnPageChange)="onPageChanged($event)">
             </ds-paginator>
           </section>
         }
-
         <ng-template dsTableCustomColumn="status" let-item="item">
           <section fxLayoutAlign="center center">
             <ds-tag
@@ -260,7 +251,6 @@
             </ds-tag>
           </section>
         </ng-template>
-
         <ng-template dsTableCustomColumn="actions" let-item="item">
           <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="center center">
             <ds-action-button
@@ -293,8 +283,8 @@
             }
           </section>
         </ng-template>
-
       </ds-table>
     </section>
   </ng-template>
+
 </main>

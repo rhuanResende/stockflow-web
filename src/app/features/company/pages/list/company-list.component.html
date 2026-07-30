@@ -7,7 +7,12 @@
       <section ds-table-pre-content class="ds-gap-md">
         <form class="ds-gap-md" [formGroup]="filterForm">
           <section class="ds-gap-md" fxLayout="column" fxLayoutAlign="space-between stretch">
-            <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="space-between center">
+            <section
+              class="ds-gap-md"
+              fxLayout="row"
+              fxLayout.lt-md="column"
+              fxLayoutAlign="space-between center"
+              fxLayoutAlign.lt-md="space-between stretch">
               <ds-input-text
                 fxFlex="50"
                 formControlName="name"
@@ -38,10 +43,16 @@
                 [dsOptionList]="statusList">
               </ds-select>
             </section>
-            <section class="ds-gap-md" fxLayout="row" fxLayoutAlign="end center">
+            <section
+              class="ds-gap-md"
+              fxLayout="row"
+              fxLayout.lt-md="column"
+              fxLayoutAlign="end center"
+              fxLayoutAlign.lt-md="space-between stretch">
               <ds-button
                 dsLabel="Limpar filtros"
                 dsIconConfig="fa-solid fa-filter-circle-xmark"
+                [dsFullWidth]="true"
                 [dsIconAlign]="dsButtonIconAlign.left"
                 [dsSize]="dsButtonSize.md"
                 [dsType]="dsButtonType.secondary"
@@ -50,6 +61,7 @@
               <ds-button
                 dsLabel="Nova solicitação"
                 dsIconConfig="fa-solid fa-plus"
+                [dsFullWidth]="true"
                 [dsIconAlign]="dsButtonIconAlign.left"
                 [dsSize]="dsButtonSize.md"
                 (dsOnClick)="newRequest()">

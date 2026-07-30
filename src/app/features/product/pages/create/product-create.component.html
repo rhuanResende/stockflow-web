@@ -1,8 +1,8 @@
-<main class="user">
+<main class="product">
 
   <section class="ds-gap-md" fxLayout="column">
 
-    <form class="ds-gap-md" [formGroup]="userForm" fxLayout="column">
+    <form class="ds-gap-md" [formGroup]="productForm" fxLayout="column">
 
       @if (this.profile === 'MASTER') {
         <ds-card-base
@@ -25,73 +25,90 @@
 
       <ds-card-base
         fxFlex
-        dsTitle="Dados do usuário"
-        dsIconBubbleIconConfig="fa-solid fa-user">
+        dsTitle="Dados do produto"
+        dsIconBubbleIconConfig="fa-solid fa-barcode">
+
         <section
           class="ds-gap-md"
           fxLayout="row"
           fxLayout.lt-md="column"
           fxLayoutAlign="space-between center"
           fxLayoutAlign.lt-md="space-between stretch">
+
           <ds-input-text
             fxFlex
             formControlName="name"
             dsLabel="Nome"
-            dsPlaceholder="Nome do usuário"
-            dsIconConfig="fa-regular fa-user"
-            [dsIconAlign]="dsInputIconAlign.left">
+            dsPlaceholder="Nome do produto">
           </ds-input-text>
-          <ds-input-document
+
+          <ds-input-text
             fxFlex
-            formControlName="document"
-            dsLabel="CPF"
-            dsPlaceholder="CPF do usuário"
-            dsIconConfig="fa-regular fa-id-card"
-            [dsIconAlign]="dsInputIconAlign.left"
-            [dsType]="dsDocumentType.cpf">
-          </ds-input-document>
+            formControlName="description"
+            dsLabel="Descrição"
+            dsPlaceholder="Descrição do produto">
+          </ds-input-text>
+
         </section>
+
         <section
           class="ds-gap-md"
           fxLayout="row"
           fxLayout.lt-md="column"
           fxLayoutAlign="space-between center"
           fxLayoutAlign.lt-md="space-between stretch">
+
           <ds-input-text
             fxFlex
-            formControlName="email"
-            dsLabel="E-mail"
-            dsPlaceholder="E-mail do usuário"
-            dsIconConfig="fa-regular fa-envelope"
-            [dsIconAlign]="dsInputIconAlign.left">
+            formControlName="sku"
+            dsLabel="Código de identificação"
+            dsPlaceholder="Código de identificação do produto">
           </ds-input-text>
+
           <ds-input-text
             fxFlex
-            formControlName="phone"
-            dsLabel="Celular"
-            dsPlaceholder="Celular do usuário"
-            dsMask="(00) 00000-0000"
-            dsIconConfig="fa-solid fa-phone"
-            [dsIconAlign]="dsInputIconAlign.left">
+            formControlName="barcode"
+            dsLabel="Código de barras"
+            dsPlaceholder="Código de barras do produto">
           </ds-input-text>
+
+          <ds-select
+            fxFlex
+            formControlName="unit"
+            dsOptionValueProp="id"
+            dsOptionLabelProp="value"
+            dsLabel="Unidade"
+            dsPlaceholder="Unidade do produto"
+            [dsAriaLabel]="'Unidade'"
+            [dsAppendTo]="'body'"
+            [dsOptionList]="units">
+          </ds-select>
+
         </section>
+
+        <section
+          class="ds-gap-md"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="space-between center"
+          fxLayoutAlign.lt-md="space-between stretch">
+
+          <ds-input-number
+            fxFlex
+            formControlName="minimumStock"
+            dsLabel="Estoque mínimo">
+          </ds-input-number>
+
+          <ds-input-number
+            fxFlex
+            formControlName="profit"
+            dsLabel="Percentual de lucro">
+          </ds-input-number>
+
+        </section>
+
       </ds-card-base>
-      <ds-card-base
-        fxFlex
-        dsTitle="Dados do perfil"
-        dsIconBubbleIconConfig="fa-solid fa-user-shield">
-        <ds-select
-          fxFlex
-          formControlName="profileId"
-          dsOptionValueProp="id"
-          dsOptionLabelProp="description"
-          dsLabel="Perfil"
-          dsPlaceholder="Perfil do usuário"
-          [dsAriaLabel]="'Perfil'"
-          [dsAppendTo]="'body'"
-          [dsOptionList]="profiles">
-        </ds-select>
-      </ds-card-base>
+
       <section
         class="ds-gap-md"
         fxLayout="row"
@@ -125,16 +142,16 @@
               dsIconConfig="fa-solid fa-plus"
               [dsLabel]="userId ? 'Editar' : 'Cadastrar'"
               [dsFullWidth]="true"
-              [dsDisabled]="userForm.invalid"
+              [dsDisabled]="productForm.invalid"
               [dsIconAlign]="dsButtonIconAlign.left"
               (dsOnClick)="create()">
             </ds-button>
           </section>
         }
       </section>
-    </form>
-    <section fxLayout="row" fxLayoutAlign="start center">
 
-    </section>
+    </form>
+
   </section>
+
 </main>

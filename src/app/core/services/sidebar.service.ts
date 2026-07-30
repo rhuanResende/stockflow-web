@@ -23,13 +23,13 @@ export class SidebarService {
       route: '/pages/users',
       profiles: ['MASTER', 'ADMIN'],
     },
-    /*
     {
       label: 'Produtos',
       icon: 'fa-solid fa-barcode',
       route: '/pages/products',
-      permissions: [UserPermission.PRODUCT_VIEW],
+      permissions: ['MASTER', 'ADMIN', 'MANAGER', 'USER'],
     },
+    /*
     {
       label: 'Movimentações',
       icon: 'fa-solid fa-cubes',
