@@ -1,0 +1,157 @@
+<main class="product">
+
+  <section class="ds-gap-md" fxLayout="column">
+
+    <form class="ds-gap-md" [formGroup]="productForm" fxLayout="column">
+
+      @if (this.profile === 'MASTER') {
+        <ds-card-base
+          fxFlex
+          dsTitle="Dados Empresa"
+          dsIconBubbleIconConfig="fa-regular fa-building">
+          <ds-select
+            fxFlex
+            formControlName="companyId"
+            dsOptionValueProp="id"
+            dsOptionLabelProp="name"
+            dsLabel="Empresa"
+            dsPlaceholder="Busque pela empresa"
+            [dsAriaLabel]="'Empresa'"
+            [dsAppendTo]="'body'"
+            [dsOptionList]="companies">
+          </ds-select>
+        </ds-card-base>
+      }
+
+      <ds-card-base
+        fxFlex
+        dsTitle="Dados do produto"
+        dsIconBubbleIconConfig="fa-solid fa-barcode">
+
+        <section
+          class="ds-gap-md"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="space-between center"
+          fxLayoutAlign.lt-md="space-between stretch">
+
+          <ds-input-text
+            fxFlex
+            formControlName="name"
+            dsLabel="Nome"
+            dsPlaceholder="Nome do produto">
+          </ds-input-text>
+
+          <ds-input-text
+            fxFlex
+            formControlName="description"
+            dsLabel="Descrição"
+            dsPlaceholder="Descrição do produto">
+          </ds-input-text>
+
+        </section>
+
+        <section
+          class="ds-gap-md"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="space-between center"
+          fxLayoutAlign.lt-md="space-between stretch">
+
+          <ds-input-text
+            fxFlex
+            formControlName="sku"
+            dsLabel="Código de identificação"
+            dsPlaceholder="Código de identificação do produto">
+          </ds-input-text>
+
+          <ds-input-text
+            fxFlex
+            formControlName="barcode"
+            dsLabel="Código de barras"
+            dsPlaceholder="Código de barras do produto">
+          </ds-input-text>
+
+          <ds-select
+            fxFlex
+            formControlName="unit"
+            dsOptionValueProp="id"
+            dsOptionLabelProp="value"
+            dsLabel="Unidade"
+            dsPlaceholder="Unidade do produto"
+            [dsAriaLabel]="'Unidade'"
+            [dsAppendTo]="'body'"
+            [dsOptionList]="units">
+          </ds-select>
+
+        </section>
+
+        <section
+          class="ds-gap-md"
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutAlign="space-between center"
+          fxLayoutAlign.lt-md="space-between stretch">
+
+          <ds-input-number
+            fxFlex
+            formControlName="minimumStock"
+            dsLabel="Estoque mínimo">
+          </ds-input-number>
+
+          <ds-input-number
+            fxFlex
+            formControlName="profit"
+            dsLabel="Percentual de lucro">
+          </ds-input-number>
+
+        </section>
+
+      </ds-card-base>
+
+      <section
+        class="ds-gap-md"
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between stretch">
+        <ds-button
+          dsLabel="Voltar"
+          dsIconConfig="fa-solid fa-arrow-left"
+          [dsFullWidth]="true"
+          [dsSize]="dsButtonSize.sm"
+          [dsType]="dsButtonType.tertiary"
+          [dsIconAlign]="dsButtonIconAlign.left"
+          (dsOnClick)="goToBack()">
+        </ds-button>
+        @if (!disabled) {
+          <section
+            class="ds-gap-md"
+            fxLayout="row"
+            fxLayout.lt-md="column"
+            fxLayoutAlign="end center"
+            fxLayoutAlign.lt-md="space-between stretch">
+            <ds-button
+              dsLabel="Limpar"
+              dsIconConfig="fa-regular fa-trash-can"
+              [dsFullWidth]="true"
+              [dsType]="dsButtonType.secondary"
+              [dsIconAlign]="dsButtonIconAlign.left"
+              (dsOnClick)="clean()">
+            </ds-button>
+            <ds-button
+              dsIconConfig="fa-solid fa-plus"
+              [dsLabel]="userId ? 'Editar' : 'Cadastrar'"
+              [dsFullWidth]="true"
+              [dsDisabled]="productForm.invalid"
+              [dsIconAlign]="dsButtonIconAlign.left"
+              (dsOnClick)="create()">
+            </ds-button>
+          </section>
+        }
+      </section>
+
+    </form>
+
+  </section>
+
+</main>
